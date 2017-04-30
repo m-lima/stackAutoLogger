@@ -35,7 +35,7 @@ function getStack() {
   fi
 
   printf "`date +[%d/%m/%y\ %H:%M:%S]` \e[1;34m$msg: \e[m"
-  curl -L -v -i -s --request GET "${get[@]}" -b cookies.txt -c cookies.txt -e stackoverflow.com $1 >> output.std 2>> output.err
+  curl -L -v -i -s --request GET "${get[@]}" -b cookies.txt.hide -c cookies.txt.hide -e stackoverflow.com $1 >> output.std 2>> output.err
   code=$(cat output.err | grep "< HTTP/.*[0-9][0-9][0-9] " | tail -1 | sed -e 's~< HTTP/.*\([0-9][0-9][0-9]\).*$~\1~')
 
   local newUserCount=$(grep "malinator" output.std | wc -l)
@@ -82,8 +82,8 @@ getStack $url "CHECK LOGIN"
 ###
 if [ $logged = 0 ]
 then
-  rm -f cookies.txt
-  curl -v -i -s --request POST "${post[@]}" -d @body.txt.hide -b cookies.txt.hide -c cookies.txt -e stackoverflow.com https://stackoverflow.com/users/login > output.std 2> output.err
+  rm -f cookies.txt.hide
+  curl -v -i -s --request POST "${post[@]}" -d @body.txt.hide -b cookies.txt.hide -c cookies.txt.hide -e stackoverflow.com https://stackoverflow.com/users/login > output.std 2> output.err
   printf "`date +[%d/%m/%y\ %H:%M:%S]` \e[33mLOG IN: \e[m"
   if grep "< HTTP/.* 30" output.err > /dev/null
   then
