@@ -1,0 +1,10 @@
+# Executable
+stackAutoLogger
+stackAutoLogger.exe
+
+# Hidden files
+*.hide
+
+# Log files
+output.std
+output.err
